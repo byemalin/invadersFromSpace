@@ -12,6 +12,8 @@
     integrity="sha256-Pg1di+fBF53Rbh9oZR/FeD1xsFzTLC963lcac1D0ias="
     crossorigin="anonymous"
   ></script>
+<!-- p5 sound -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
 
   <!-- p5 party -->
   <script src="https://cdn.jsdelivr.net/npm/p5.party@latest/dist/p5.party.js"></script>
@@ -21,6 +23,16 @@
 </head>
 
 <body>
+
+
+  <button id="toggle" onmousedown="partyToggleInfo()" class="favorite styled" type="button">
+    Toggle Server Info
+  </button>
+
+  <div class="flexbox">
+  <div id="canvasdiv"></div>
+  </div>
+
 </body>
 
 

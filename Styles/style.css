@@ -1,0 +1,42 @@
+body {
+  margin: 0;
+}
+
+.flexbox {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(34, 29, 29);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#canvasdiv {
+  border: 4mm ridge rgb(47, 47, 42);
+}
+
+#toggle {
+  position: absolute;
+  top: 20vh;
+  left: 10vw;
+}
+.styled {
+  border: 4mm ridge rgb(47, 47, 42);
+  line-height: 2.5;
+  padding: 0 20px;
+
+  color: rgba(122, 225, 69, 1);
+  /* text-shadow: 1px 1px 1px #000; */
+  border-radius: 10px;
+  background-color: rgb(0, 0, 0);
+}
+
+.styled:hover {
+  background-color: rgb(54, 98, 31);
+}
+
+.styled:active {
+  box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 0.6),
+    inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+}
