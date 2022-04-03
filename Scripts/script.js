@@ -8,10 +8,10 @@ let spaceFont;
 let scene = 0;
 
 function preload() {
-  spaceFont = loadFont('../Fonts/digital-7.regular.ttf');
+  spaceFont = loadFont('Assets/fonts/digital-7.regular.ttf');
   partyConnect(
     "wss://deepstream-server-1.herokuapp.com",
-    "spaceInvaders_Localrun2",
+    "spaceInvaders_Localrun3",
     "main1"
   );
   shared = partyLoadShared("globals");
