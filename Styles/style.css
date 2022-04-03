@@ -5,6 +5,7 @@
 
 html {
   font-family: spaceFont;
+  user-select: none;
 }
 * {
   padding: 0;
