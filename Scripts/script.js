@@ -4,12 +4,14 @@ require https://cdn.jsdelivr.net/npm/p5.party@latest/dist/p5.party.js
 sounds: https://www.classicgaming.cc/classics/space-invaders/sounds*/
 
 let shared, me, participants, shoot, explode;
+let spaceFont;
 let scene = 0;
 
 function preload() {
+  spaceFont = loadFont('../Fonts/digital-7.regular.ttf');
   partyConnect(
     "wss://deepstream-server-1.herokuapp.com",
-    "spaceInvaders_Localrun1",
+    "spaceInvaders_Localrun2",
     "main1"
   );
   shared = partyLoadShared("globals");
@@ -30,6 +32,7 @@ function setup() {
   rectMode(CENTER);
   imageMode(CENTER);
   frameRate(60);
+  textFont(spaceFont);
 
 
   //Toggle Server Info
@@ -83,16 +86,16 @@ function startScreen() {
 
   textSize(50);
   fill(122, 225, 69);
-  text("Invaders from Space", 80, 100);
+  text("Invaders from Space", 100, 100);
 
   textSize(40);
-  text("START", 240, 200);
+  text("START", 255, 200);
   //text("Instructions",200,300);
 
-  if (mouseX > 250 && mouseX < 300 && mouseY > 150 && mouseY < 250) {
+  if (mouseX > 230 && mouseX < 350 && mouseY > 120 && mouseY < 200) {
     fill(255);
     textSize(40);
-    text("START", 240, 200);
+    text("START", 255, 200);
 
     if (mouseIsPressed == true) {
       scene = 1;
@@ -104,6 +107,7 @@ function waitForHost() {
   textSize(40);
   fill(122, 225, 69);
   if (partyIsHost()) {
+    text("You are the Host", 100, 250);
     text("Press ENTER to begin", 100, 300);
     text("when everyone is ready", 100, 350);
     if (keyCode == 13) {
@@ -261,6 +265,7 @@ function gameOver() {
 
 function mousePressed() {
   //spawn a bullet
+  if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
   me.bullets.push({
     x: mouseX,
     y: height - 50,
@@ -268,4 +273,5 @@ function mousePressed() {
   if (scene == 2) {
     shoot.play();
   }
+}
 }
