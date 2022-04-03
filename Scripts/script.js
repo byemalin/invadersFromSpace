@@ -11,7 +11,7 @@ function preload() {
   spaceFont = loadFont('Assets/fonts/digital-7.regular.ttf');
   partyConnect(
     "wss://deepstream-server-1.herokuapp.com",
-    "spaceInvaders_Localrun3",
+    "spaceInvaders_Localrun4",
     "main1"
   );
   shared = partyLoadShared("globals");
@@ -84,6 +84,7 @@ function draw() {
 function startScreen() {
   image(scaledAliens, 300, 400, 500, 300);
 
+
   textSize(50);
   fill(122, 225, 69);
   text("Invaders from Space", 100, 100);
@@ -101,6 +102,8 @@ function startScreen() {
       scene = 1;
     }
   }
+
+  circle(mouseX,mouseY, 10)
 }
 
 function waitForHost() {

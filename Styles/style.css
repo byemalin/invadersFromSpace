@@ -28,7 +28,8 @@ body {
 
 #canvasdiv {
   border: 4mm ridge rgb(47, 47, 42);
-  cursor: url(../Assets/img/pointer.png), auto;
+  /* cursor: url(../Assets/img/pointer.png), auto; */
+  cursor: none;
 }
 
 #toggle {
