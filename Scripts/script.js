@@ -17,8 +17,8 @@ function preload() {
   participants = partyLoadParticipantShareds();
 
   //loading the sounds and images
-  // shoot = loadSound("Assets/audio/shoot.wav");
-  // explode = loadSound("Assets/audio/explosion.wav");
+  shoot = loadSound("Assets/audio/shoot.wav");
+  explode = loadSound("Assets/audio/explosion.wav");
   greenAlien = loadImage("Assets/img/GreenAlien.png");
   loseAliens = loadImage("Assets/img/LOSE-01.png");
   scaledAliens = loadImage("Assets/img/scaledAliens.png");
@@ -266,6 +266,6 @@ function mousePressed() {
     y: height - 50,
   });
   if (scene == 2) {
-    //shoot.play();
+    shoot.play();
   }
 }
