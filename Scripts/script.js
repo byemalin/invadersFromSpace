@@ -7,11 +7,13 @@ let shared, me, participants, shoot, explode;
 let spaceFont;
 let scene = 0;
 
+var stars = [];
+
 function preload() {
   spaceFont = loadFont('Assets/fonts/digital-7.regular.ttf');
   partyConnect(
     "wss://deepstream-server-1.herokuapp.com",
-    "spaceInvaders_Localrun4",
+    "spaceInvaders_Localrun5",
     "main1"
   );
   shared = partyLoadShared("globals");
@@ -33,6 +35,12 @@ function setup() {
   imageMode(CENTER);
   frameRate(60);
   textFont(spaceFont);
+
+
+  //create stars
+  for (var i = 0; i < 20; i++) {
+		stars[i] = new Star();
+	}
 
 
   //Toggle Server Info
@@ -141,6 +149,11 @@ function waitForHost() {
 
 //GAME CASE
 function game() {
+
+  for (var i = 0; i < stars.length; i++) {
+		stars[i].draw();
+	}
+
   // host moves enemies
   if (partyIsHost()) {
     for (let enemy of shared.enemies) {
@@ -277,4 +290,24 @@ function mousePressed() {
     shoot.play();
   }
 }
+}
+
+
+
+
+// star class //
+class Star {
+	constructor() {
+		this.x = random(width);
+		this.y = random(height);
+		this.size = random(0.25, 3);
+		this.t = random(TAU);
+	}
+	
+	draw() {
+		this.t += 0.1;
+		var scale = this.size + sin(this.t) * 2;
+		noStroke();
+		ellipse(this.x, this.y, scale, scale);
+	}
 }
