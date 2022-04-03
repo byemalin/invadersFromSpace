@@ -17,11 +17,11 @@ function preload() {
   participants = partyLoadParticipantShareds();
 
   //loading the sounds and images
-  // shoot = loadSound("assets/audio/shoot.wav");
-  // explode = loadSound("assets/audio/explosion.wav");
-  greenAlien = loadImage("assets/img/GreenAlien.png");
-  loseAliens = loadImage("assets/img/LOSE-01.png");
-  scaledAliens = loadImage("assets/img/scaledAliens.png");
+  // shoot = loadSound("Assets/audio/shoot.wav");
+  // explode = loadSound("Assets/audio/explosion.wav");
+  greenAlien = loadImage("Assets/img/GreenAlien.png");
+  loseAliens = loadImage("Assets/img/LOSE-01.png");
+  scaledAliens = loadImage("Assets/img/scaledAliens.png");
 }
 
 function setup() {
@@ -76,7 +76,7 @@ function draw() {
       startScreen();
       break;
   }
-}
+}0
 
 function startScreen() {
   image(scaledAliens, 300, 400, 500, 300);
