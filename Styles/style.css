@@ -1,8 +1,18 @@
 html {
 }
+*{
+  padding: 0;
+  margin: 0;
+}
 
+@@font-face {
+  font-family: spaceFont;
+  src: url(Fonts/digital-7.regular.ttf);
+}
 body {
   margin: 0;
+  padding: 0;
+  font-family: spaceFont;
 }
 
 .flexbox {
@@ -17,7 +27,7 @@ body {
 
 #canvasdiv {
   border: 4mm ridge rgb(47, 47, 42);
-  cursor: url(../assets/img/pointer.png), auto;
+  cursor: url(../Assets/img/pointer.png), auto;
 }
 
 #toggle {
@@ -41,6 +51,62 @@ body {
 }
 
 .styled:active {
+  box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 0.6),
+    inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+.hide{
+  display: none;
+}
+
+.instructions:hover + .hide{
+  display: block;
+}
+
+#manual{
+  position: absolute;
+  top: 20vh;
+  left: 10vw;
+  border: 4mm ridge rgb(47, 47, 42);
+  line-height: 2.5;
+  padding: 0 20px;
+  margin-top: 80px;
+  color: rgba(122, 225, 69, 1);
+  /* text-shadow: 1px 1px 1px #000; */
+  border-radius: 10px;
+  background-color: rgb(0, 0, 0);
+}
+
+#myText{
+  position: absolute;
+  top: 20vh;
+  left: 10vw;
+  border: 4mm ridge rgb(47, 47, 42);
+  line-height: 2.5;
+  padding: 0 20px;
+  margin-top: 180px;
+  color: rgba(122, 225, 69, 1);
+  /* text-shadow: 1px 1px 1px #000; */
+  border-radius: 10px;
+  background-color: rgb(0, 0, 0);
+}
+
+.instructions {
+  border: 4mm ridge rgb(47, 47, 42);
+  line-height: 2.5;
+  padding: 0 20px;
+
+  color: rgba(122, 225, 69, 1);
+  /* text-shadow: 1px 1px 1px #000; */
+  border-radius: 10px;
+  background-color: rgb(0, 0, 0);
+}
+
+.instructions:hover {
+  background-color: rgb(54, 98, 31);
+}
+
+.instructions:active {
   box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 0.6),
     inset 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
