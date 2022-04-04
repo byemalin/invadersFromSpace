@@ -13,7 +13,7 @@ function preload() {
   spaceFont = loadFont('Assets/fonts/digital-7.regular.ttf');
   partyConnect(
     "wss://deepstream-server-1.herokuapp.com",
-    "spaceInvaders_Localrun5",
+    "spaceInvaders_Localrun6",
     "main1"
   );
   shared = partyLoadShared("globals");
@@ -36,6 +36,8 @@ function setup() {
   frameRate(60);
   textFont(spaceFont);
 
+  shared.highscore = shared.highscore || 0;
+
 
   //create stars
   for (var i = 0; i < 20; i++) {
@@ -46,7 +48,6 @@ function setup() {
   //Toggle Server Info
   partyToggleInfo(false);
   toggle= document.getElementById('toggle');
-  console.log("toggle brughu", toggle)
 
   // set up game state
   if (partyIsHost()) {
@@ -118,6 +119,7 @@ function waitForHost() {
   textSize(40);
   fill(122, 225, 69);
   if (partyIsHost()) {
+    textAlign(LEFT);
     text("You are the Host", 100, 250);
     text("Press ENTER to begin", 100, 300);
     text("when everyone is ready", 100, 350);
@@ -145,6 +147,19 @@ function waitForHost() {
       me.bullets = [];
     }
   }
+
+  // draw each participant's ship
+  for (const p of participants) {
+    if (p.x !== undefined && p.y !== undefined) {
+      fill(color(p.colorR, p.colorG, p.colorB));
+      triangle(p.x, p.y, p.x + 20, p.y + 30, p.x - 20, p.y + 30);
+    }
+  }
+
+  // mark this participants ship
+  fill(color(me.colorR, me.colorG, me.colorB));
+  triangle(me.x, me.y, me.x + 20, me.y + 30, me.x - 20, me.y + 30);
+
 }
 
 //GAME CASE
@@ -154,18 +169,18 @@ function game() {
 		stars[i].draw();
 	}
 
+  
+   //losing
+  for (let enemy of shared.enemies) {
+    if (enemy.y > height) {
+      scene = 3;
+      explode.play();
+    } 
+  }
   // host moves enemies
   if (partyIsHost()) {
     for (let enemy of shared.enemies) {
-      enemy.y += 2.0;
-
-      //losing
-      if (enemy.y > height) {
-        gameOver();
-        // explode.play();
-        // shoot.stop();
-        //noLoop();
-      }
+        enemy.y += 2.0;
     }
   }
 
@@ -175,36 +190,40 @@ function game() {
   }
 
   // COLLISIONS
+  
+  
+  if (partyIsHost()) { //host is handling collisions
 
-  if (partyIsHost()) {
     for (let enemy of shared.enemies) {
-      for (const p of participants) {
-        for (const b of p.bullets) {
-          if (dist(enemy.x, enemy.y, b.x, b.y) < 20) {
-            // console.log("hit");
-            // remove enemy
-            shared.enemies.splice(shared.enemies.indexOf(enemy), 1);
-            // ^ possible conflict, every client writes to shared
+      if (enemy.x !== null && enemy.y !== null) {
+        if (enemy.y < height) {
+          for (const p of participants) {
+            for (const b of p.bullets) {
+              if (dist(enemy.x, enemy.y, b.x, b.y) < 20) {
+                // console.log("hit");
+                // remove enemy
+                shared.enemies.splice(shared.enemies.indexOf(enemy), 1);
 
-            // remove bullet
-            p.bullets.splice(p.bullets.indexOf(b), 1);
-            // ^ okay, client writing to own "me"
+                // remove bullet
+                p.bullets.splice(p.bullets.indexOf(b), 1);
 
-            // spawn enemy
-            shared.enemies.push({
-              x: random(0, width),
-              y: random(-800, 0),
-            });
-            //  ^ possible conflict, every client writes to shared
-
-            // increment score
-            shared.score++;
-            //  ^ possible conflict, every client writes to shared
+                // spawn enemy
+                shared.enemies.push({
+                  x: random(0, width),
+                  y: random(-800, 0),
+                });
+                // increment score
+                shared.score++;
+              }
+            }
           }
         }
       }
     }
   }
+
+
+
   // draw every participant's bullets
   for (const p of participants) {
     for (const b of p.bullets) {
@@ -214,7 +233,7 @@ function game() {
 
   // draw enemies
   for (let enemy of shared.enemies) {
-    //console.log(enemy.y)
+
     //rect(enemy.x, enemy.y, 10);
     image(greenAlien, enemy.x, enemy.y, 20, 30);
   }
@@ -241,17 +260,22 @@ function game() {
 
 function gameOver() {
   textSize(40);
-  fill(255, 0, 0);
-  image(loseAliens, 300, 300, 600, 600);
-  background(color(0,255,0))
-  text("YOU LOSE!", 200, 300);
-  text("Press R to restart", 150, 350);
+  fill(200, 0, 0);
+  background(color(0,0,0))
+  textAlign(CENTER);
+  text("YOU MISSED AN INVADER!", width/2, 200);
+  
+  fill(122, 225, 69);
+  text("Your Score:", width/2, 300);
+  text(shared.score, width/2, 350);
+
+  fill(200, 0, 0);
+  text("Press R to restart", width/2, 450);
 
   //explode.play();
   //shoot.stop();
 
   if (keyCode == 82) {
-    console.log("R PRESSED");
     scene = 1;
   }
 }
@@ -282,17 +306,24 @@ function gameOver() {
 function mousePressed() {
   //spawn a bullet
   if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
-  me.bullets.push({
-    x: mouseX,
-    y: height - 50,
-  });
-  if (scene == 2) {
-    shoot.play();
+    me.bullets.push({
+      x: mouseX,
+      y: height - 50,
+    });
+    if (scene == 2) {
+      shoot.play();
+    }
   }
 }
-}
 
 
+//  function endsound(){
+//   for (let enemy of shared.enemies) {
+//     if (enemy.y > height) {
+//       explode.play();
+//     }
+//   }
+//  }
 
 
 // star class //
