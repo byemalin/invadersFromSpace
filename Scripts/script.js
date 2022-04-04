@@ -285,6 +285,7 @@ function game() {
         scene = 1;
       }
     }else if (!partyIsHost()) {
+      fill(200, 0, 0);
       text("Wait for Host to restart", width/2, 450);
       if (shared.hostRestart == true) {
         scene = 1;
@@ -293,7 +294,7 @@ function game() {
   }
 
 
-  //semiworking
+//Version that doesn't have party is host
 // function gameOver() {
 //   textSize(40);
 //   fill(200, 0, 0);
@@ -316,26 +317,6 @@ function game() {
 //   }
 // }
 
-
-//Game over case with partyIsHost that didn't quite work
-// function gameOver() {
-//   textSize(40);
-//     fill(255,0,0);
-//   if (partyIsHost()) {
-//     text("YOU LOSE!", 200, 300);
-//     text("Press R to restart", 150, 350);
-//     if (keyCode == 82) {
-//       console.log("R PRESSED");
-//       shared.hostRestart = true;
-//       scene = 1;
-//     }
-//   } else if (!partyIsHost()) {
-//     text("Wait for host to restart", 100, 250);
-//     if (shared.hostRestart == true) {
-//       scene = 1;
-//     }
-//   }
-// }
 
 //spawing bullets
 
