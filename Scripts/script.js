@@ -13,7 +13,7 @@ function preload() {
   spaceFont = loadFont('Assets/fonts/digital-7.regular.ttf');
   partyConnect(
     "wss://deepstream-server-1.herokuapp.com",
-    "spaceInvaders_Localrun6",
+    "spaceInvaders_Localrun7",
     "main1"
   );
   shared = partyLoadShared("globals");
@@ -36,7 +36,7 @@ function setup() {
   frameRate(60);
   textFont(spaceFont);
 
-  shared.highscore = shared.highscore || 0;
+
 
 
   //create stars
@@ -141,6 +141,7 @@ function waitForHost() {
       }
     }
   } else if (!partyIsHost()) {
+    textAlign(LEFT);
     text("Waiting for the host", 100, 250);
     if (shared.hostStart == true) {
       scene = 2;
@@ -258,27 +259,62 @@ function game() {
 
 //GAME OVER CASE
 
-function gameOver() {
-  textSize(40);
-  fill(200, 0, 0);
-  background(color(0,0,0))
-  textAlign(CENTER);
-  text("YOU MISSED AN INVADER!", width/2, 200);
+
+
+
+  function gameOver() {
+    textSize(40);
+    fill(200, 0, 0);
+    background(color(0,0,0))
+    textAlign(CENTER);
+    text("YOU MISSED AN INVADER!", width/2, 200);
+    
+    fill(122, 225, 69);
+    text("Your Score:", width/2, 300);
+    text(shared.score, width/2, 350);
   
-  fill(122, 225, 69);
-  text("Your Score:", width/2, 300);
-  text(shared.score, width/2, 350);
-
-  fill(200, 0, 0);
-  text("Press R to restart", width/2, 450);
-
-  //explode.play();
-  //shoot.stop();
-
-  if (keyCode == 82) {
-    scene = 1;
+    if (partyIsHost()) {
+      fill(200, 0, 0);
+      text("Press R to restart", width/2, 450);
+    
+      //explode.play();
+      //shoot.stop();
+    
+      if (keyCode == 82) {
+        shared.hostRestart = true;
+        scene = 1;
+      }
+    }else if (!partyIsHost()) {
+      text("Wait for Host to restart", width/2, 450);
+      if (shared.hostRestart == true) {
+        scene = 1;
+      }
+    }
   }
-}
+
+
+  //semiworking
+// function gameOver() {
+//   textSize(40);
+//   fill(200, 0, 0);
+//   background(color(0,0,0))
+//   textAlign(CENTER);
+//   text("YOU MISSED AN INVADER!", width/2, 200);
+  
+//   fill(122, 225, 69);
+//   text("Your Score:", width/2, 300);
+//   text(shared.score, width/2, 350);
+
+//   fill(200, 0, 0);
+//   text("Press R to restart", width/2, 450);
+
+//   //explode.play();
+//   //shoot.stop();
+
+//   if (keyCode == 82) {
+//     scene = 1;
+//   }
+// }
 
 
 //Game over case with partyIsHost that didn't quite work
