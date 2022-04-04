@@ -13,7 +13,7 @@ function preload() {
   spaceFont = loadFont('Assets/fonts/digital-7.regular.ttf');
   partyConnect(
     "wss://deepstream-server-1.herokuapp.com",
-    "spaceInvaders_Localrun7",
+    "spaceInvaders_Localrun8",
     "main1"
   );
   shared = partyLoadShared("globals");
@@ -36,10 +36,14 @@ function setup() {
   frameRate(60);
   textFont(spaceFont);
 
+
+
+
   //create stars
   for (var i = 0; i < 20; i++) {
 		stars[i] = new Star();
 	}
+
 
   //Toggle Server Info
   partyToggleInfo(false);
@@ -89,12 +93,14 @@ function draw() {
 function startScreen() {
   image(scaledAliens, 300, 400, 500, 300);
 
+
   textSize(50);
   fill(122, 225, 69);
   text("Invaders from Space", 100, 100);
 
   textSize(40);
   text("START", 255, 200);
+  //text("Instructions",200,300);
 
   if (mouseX > 230 && mouseX < 350 && mouseY > 120 && mouseY < 200) {
     fill(255);
@@ -119,7 +125,7 @@ function waitForHost() {
     text("when everyone is ready", 100, 350);
     if (keyCode == 13) {
       shared.hostStart = true;
-      shared.hostRestart = false;
+      //shared.hostRestart = false;
       me.bullets = [];
       shared.score = 0;
       shared.enemies = [];
@@ -164,12 +170,13 @@ function game() {
 		stars[i].draw();
 	}
 
+  
    //losing
   for (let enemy of shared.enemies) {
     if (enemy.y > height) {
       scene = 3;
       explode.play();
-    }
+    } 
   }
   // host moves enemies
   if (partyIsHost()) {
@@ -184,8 +191,10 @@ function game() {
   }
 
   // COLLISIONS
-
+  
+  
   if (partyIsHost()) { //host is handling collisions
+
     for (let enemy of shared.enemies) {
       if (enemy.x !== null && enemy.y !== null) {
         if (enemy.y < height) {
@@ -249,26 +258,35 @@ function game() {
 }
 
 //GAME OVER CASE
+
+
+
+
   function gameOver() {
     textSize(40);
     fill(200, 0, 0);
     background(color(0,0,0))
     textAlign(CENTER);
     text("YOU MISSED AN INVADER!", width/2, 200);
-
+    
     fill(122, 225, 69);
     text("Your Score:", width/2, 300);
     text(shared.score, width/2, 350);
 
+    
+  
     if (partyIsHost()) {
       fill(200, 0, 0);
       text("Press R to restart", width/2, 450);
-
+    
       //explode.play();
       //shoot.stop();
 
+      shared.hostRestart = false;
+    
       if (keyCode == 82) {
         shared.hostRestart = true;
+        shared.hostStart = false;
         scene = 1;
       }
     }else if (!partyIsHost()) {
@@ -281,6 +299,34 @@ function game() {
   }
 
 
+
+  // function gameOver() {
+  //   textSize(40);
+  //   fill(200, 0, 0);
+  //   background(color(0,0,0))
+  //   textAlign(CENTER);
+  //   text("YOU MISSED AN INVADER!", width/2, 200);
+    
+  //   fill(122, 225, 69);
+  //   text("Your Score:", width/2, 300);
+  //   text(shared.score, width/2, 350);
+
+  //     fill(200, 0, 0);
+  //     text("Press R to restart", width/2, 450);
+    
+  //     if (keyCode == 82) {
+  //       shared.hostStart = false;
+  //       scene = 1;
+  //     }
+    
+  // }
+
+
+
+
+
+
+
 //Version that doesn't have party is host
 // function gameOver() {
 //   textSize(40);
@@ -288,7 +334,7 @@ function game() {
 //   background(color(0,0,0))
 //   textAlign(CENTER);
 //   text("YOU MISSED AN INVADER!", width/2, 200);
-
+  
 //   fill(122, 225, 69);
 //   text("Your Score:", width/2, 300);
 //   text(shared.score, width/2, 350);
@@ -338,7 +384,7 @@ class Star {
 		this.size = random(0.25, 3);
 		this.t = random(TAU);
 	}
-
+	
 	draw() {
 		this.t += 0.1;
 		var scale = this.size + sin(this.t) * 2;
