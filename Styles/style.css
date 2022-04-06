@@ -82,7 +82,7 @@ body {
   background-color: rgb(0, 0, 0);
 }
 
-#myText {
+#myText{
   position: absolute;
   top: 20vh;
   left: 10vw;
@@ -95,6 +95,29 @@ body {
   border-radius: 10px;
   background-color: rgb(0, 0, 0);
   font-family: spaceFont;
+}
+
+#kit{
+  position: absolute;
+  top: 20vh;
+  left: 10vw;
+  border: 4mm ridge rgb(47, 47, 42);
+  line-height: 2.5;
+  padding: 0 20px;
+  top: 45vh;
+  color: rgba(122, 225, 69, 1);
+  /* text-shadow: 1px 1px 1px #000; */
+  border-radius: 10px;
+  background-color: rgb(0, 0, 0);
+  font-family: spaceFont;
+}
+
+a{
+  color: rgba(122, 225, 69, 1);
+}
+
+a:hover{
+  background-color: rgb(54, 98, 31);
 }
 
 .instructions {
