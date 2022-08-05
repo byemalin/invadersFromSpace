@@ -46,7 +46,7 @@ function setup() {
 
 
   //Toggle Server Info
-  partyToggleInfo(false);
+  //partyToggleInfo(false);
   toggle= document.getElementById('toggle');
 
   // set up game state
