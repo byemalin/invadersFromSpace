@@ -13,7 +13,7 @@ function preload() {
   spaceFont = loadFont('Assets/fonts/digital-7.regular.ttf');
   partyConnect(
     "wss://deepstream-server-1.herokuapp.com",
-    "spaceInvaders_Localrun8",
+    "spaceInvaders_Localrun9",
     "main1"
   );
   shared = partyLoadShared("globals");
@@ -259,9 +259,6 @@ function game() {
 
 //GAME OVER CASE
 
-
-
-
   function gameOver() {
     textSize(40);
     fill(200, 0, 0);
@@ -299,58 +296,6 @@ function game() {
   }
 
 
-
-  // function gameOver() {
-  //   textSize(40);
-  //   fill(200, 0, 0);
-  //   background(color(0,0,0))
-  //   textAlign(CENTER);
-  //   text("YOU MISSED AN INVADER!", width/2, 200);
-    
-  //   fill(122, 225, 69);
-  //   text("Your Score:", width/2, 300);
-  //   text(shared.score, width/2, 350);
-
-  //     fill(200, 0, 0);
-  //     text("Press R to restart", width/2, 450);
-    
-  //     if (keyCode == 82) {
-  //       shared.hostStart = false;
-  //       scene = 1;
-  //     }
-    
-  // }
-
-
-
-
-
-
-
-//Version that doesn't have party is host
-// function gameOver() {
-//   textSize(40);
-//   fill(200, 0, 0);
-//   background(color(0,0,0))
-//   textAlign(CENTER);
-//   text("YOU MISSED AN INVADER!", width/2, 200);
-  
-//   fill(122, 225, 69);
-//   text("Your Score:", width/2, 300);
-//   text(shared.score, width/2, 350);
-
-//   fill(200, 0, 0);
-//   text("Press R to restart", width/2, 450);
-
-//   //explode.play();
-//   //shoot.stop();
-
-//   if (keyCode == 82) {
-//     scene = 1;
-//   }
-// }
-
-
 //spawing bullets
 
 function mousePressed() {
@@ -365,15 +310,6 @@ function mousePressed() {
     }
   }
 }
-
-
-//  function endsound(){
-//   for (let enemy of shared.enemies) {
-//     if (enemy.y > height) {
-//       explode.play();
-//     }
-//   }
-//  }
 
 
 // star class //
